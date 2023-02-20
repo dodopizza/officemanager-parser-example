@@ -6,13 +6,15 @@ namespace OfficeManagerParserExample;
 
 internal static class Program
 {
+    private static readonly Configuration Config = Helpers.CreateConfiguration();
+    
     private static readonly CookieContainer? OfficeManagerCookieContainer;
 
     private static readonly HttpClient AuthHttpClient =
-        Helpers.CreateHttpClient(Constants.AuthBaseUrl, out _);
+        Helpers.CreateHttpClient(Config.AuthBaseUrl, out _);
 
     private static readonly HttpClient OfficeManagerHttpClient =
-        Helpers.CreateHttpClient(Constants.OfficeManagerBaseUrl, out OfficeManagerCookieContainer);
+        Helpers.CreateHttpClient(Config.OfficeManagerBaseUrl, out OfficeManagerCookieContainer);
 
     private static readonly IHtmlParser Parser = new HtmlParser();
 
@@ -27,10 +29,9 @@ internal static class Program
         var signInOidcFormData = await ParseSignInOidcFormDataAsync(signInOidcFormHtml);
         var selectRoleFormHtml = await SendSignInOidcFormDataAsync(signInOidcFormData);
         var selectRoleFormData = await ParseSelectRoleFormAsync(selectRoleFormHtml);
-        var selectDepartmentFormHtml = await SendSelectRoleFormDataAsync(selectRoleFormData, Constants.RoleId);
+        var selectDepartmentFormHtml = await SendSelectRoleFormDataAsync(selectRoleFormData, Config.RoleId);
         var selectDepartmentFormData = await ParseSelectDepartmentFormAsync(selectDepartmentFormHtml);
-        var operationalStatisticsHtml =
-            await SendSelectDepartmentFormDataAsync(selectDepartmentFormData, Constants.DepartmentUuid);
+        var operationalStatisticsHtml = await SendSelectDepartmentFormDataAsync(selectDepartmentFormData, Config.DepartmentUuid);
 
         PrintCookies();
 
@@ -119,8 +120,8 @@ internal static class Program
         return new AccountLoginFormData
         {
             ReturnUrl = emptyFormData.ReturnUrl,
-            Username = Constants.Username,
-            Password = Constants.Password,
+            Username = Config.Username,
+            Password = Config.Password,
             TenantName = "dodopizza",
             CountryCode = "Ru",
             AuthMethod = "local",
@@ -194,11 +195,11 @@ internal static class Program
         };
     }
 
-    private static async Task<string> SendSelectRoleFormDataAsync(SelectRoleFormData formData, int selectedRoleId)
+    private static async Task<string> SendSelectRoleFormDataAsync(SelectRoleFormData formData, int? selectedRoleId)
     {
         var formValues = new Dictionary<string, string?>
         {
-            ["roleId"] = selectedRoleId.ToString(),
+            ["roleId"] = selectedRoleId?.ToString(),
             ["__RequestVerificationToken"] = formData.RequestVerificationToken
         };
 
@@ -223,7 +224,7 @@ internal static class Program
     }
 
     private static async Task<string> SendSelectDepartmentFormDataAsync(SelectDepartmentFormData formData,
-        string selectedDepartmentUuid)
+        string? selectedDepartmentUuid)
     {
         var formValues = new Dictionary<string, string?>
         {

@@ -1,11 +1,27 @@
 using System.Net;
+using Microsoft.Extensions.Configuration;
 
 namespace OfficeManagerParserExample;
 
 public static class Helpers
 {
-    public static HttpClient CreateHttpClient(string baseUrl, out CookieContainer cookieContainer)
+    public static Configuration CreateConfiguration()
     {
+        var configuration = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json", optional: false)
+            .AddJsonFile("appsettings.local.json", optional: true)
+            .Build();
+
+        return configuration.Get<Configuration>();
+    }
+    
+    public static HttpClient CreateHttpClient(string? baseUrl, out CookieContainer cookieContainer)
+    {
+        if (string.IsNullOrWhiteSpace(baseUrl))
+        {
+            throw new NullReferenceException($"'{nameof(baseUrl)}' cannot be null or empty");
+        }
+        
         cookieContainer = new CookieContainer();
         
         var handler = new HttpClientHandler
