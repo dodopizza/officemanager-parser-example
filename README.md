@@ -2,6 +2,11 @@
 
 Пример бота для парсинга интерфейсов "Менеджера Офиса", работающих на новом сервисе авторизации.
 
+# admin-web-parser-example
+
+Пример бота для парсинга интерфейсов "Администратора Подразделения", работающих на новом сервисе авторизации.
+Запуск аналогичен парсеру "Менеджера Офиса".
+
 ## Как запустить локально
 
 Установить .NET SDK не ниже версии 6.0.
@@ -9,7 +14,7 @@
 В папке с проектом создать локальный конфиг на основе базового:
 
 ```shell
-cp OfficeManagerParserExample/OfficeManagerParserExample/appsettings.json OfficeManagerParserExample/OfficeManagerParserExample/appsettings.local.json
+cp ParserExamples/OfficeManagerParserExample/appsettings.json ParserExamples/OfficeManagerParserExample/appsettings.local.json
 ```
 
 Заполнить `appsettings.local.json` своими значениями:
@@ -24,5 +29,5 @@ cp OfficeManagerParserExample/OfficeManagerParserExample/appsettings.json Office
 Выполнить команду:
 
 ```shell
-dotnet run --project OfficeManagerParserExample/OfficeManagerParserExample
+dotnet run --project ParserExamples/OfficeManagerParserExample
 ```
