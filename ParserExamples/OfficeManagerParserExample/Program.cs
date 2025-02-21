@@ -120,7 +120,7 @@ internal static class Program
         return new AccountLoginFormData
         {
             ReturnUrl = emptyFormData.ReturnUrl,
-            Username = Config.Username,
+            Login = Config.Login,
             Password = Config.Password,
             TenantName = "dodopizza",
             CountryCode = "Ru",
@@ -135,7 +135,7 @@ internal static class Program
         var formValues = new Dictionary<string, string?>
         {
             ["ReturnUrl"] = formData.ReturnUrl,
-            ["Username"] = formData.Username,
+            ["Login"] = formData.Login,
             ["Password"] = formData.Password,
             ["TenantName"] = formData.TenantName,
             ["CountryCode"] = formData.CountryCode,
@@ -144,7 +144,7 @@ internal static class Program
             ["RememberLogin"] = formData.RememberLogin.ToString()
         };
 
-        var response = await AuthHttpClient.PostAsFormUrlEncodedAsync("account/login", formValues);
+        var response = await AuthHttpClient.PostAsFormUrlEncodedAsync("/login", formValues);
         var responseContent = await response.Content.ReadAsStringAsync();
         return responseContent;
     }

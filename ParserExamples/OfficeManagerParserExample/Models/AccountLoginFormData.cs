@@ -3,7 +3,7 @@ namespace OfficeManagerParserExample.Models;
 public class AccountLoginFormData
 {
     public string? ReturnUrl { get; init; }
-    public string? Username { get; init; }
+    public string? Login { get; init; }
     public string? Password { get; init; }
     public string? TenantName { get; init; }
     public string? CountryCode { get; init; }
