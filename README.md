@@ -14,7 +14,7 @@
 
 ## Как запустить локально
 
-Установить .NET SDK не ниже версии 6.0.
+Установить .NET SDK не ниже версии 8.0.
 
 В папке с проектом создать локальный конфиг на основе базового:
 
@@ -26,7 +26,7 @@ cp ParserExamples/OfficeManagerParserExample/appsettings.json ParserExamples/Off
 
 - `AuthBaseUrl` - базовый url сервиса авторизации (если отличается от production)
 - `OfficeManagerBaseUrl` - базовый url "Менеджера Офиса" (если отличается от production)
-- `Username` - логин парсера в Dodo IS
+- `Login` - логин парсера в Dodo IS
 - `Password` - пароль парсера в Dodo IS
 - `RoleId` - уникальный идентификатор роли в Dodo IS, под которой должен заходить парсер
 - `DepartmentUuid` - Uuid департамента в Dodo IS, в который должен заходить парсер
