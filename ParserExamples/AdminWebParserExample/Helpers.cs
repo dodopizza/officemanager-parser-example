@@ -12,7 +12,7 @@ public static class Helpers
             .AddJsonFile("appsettings.local.json", true)
             .Build();
 
-        return configuration.Get<Configuration>();
+        return configuration.Get<Configuration>() ?? throw new InvalidOperationException();
     }
 
     public static HttpClient CreateHttpClient(string? baseUrl, out CookieContainer cookieContainer)
