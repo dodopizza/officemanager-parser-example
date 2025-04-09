@@ -101,36 +101,34 @@ internal static class Program
         return responseContent;
     }
 
-    private static async Task<AccountLoginFormData> ParseAccountLoginFormDataAsync(string accountLoginFormHtml)
+    private static async Task<LoginFormData> ParseAccountLoginFormDataAsync(string accountLoginFormHtml)
     {
         var document = await Parser.ParseDocumentAsync(accountLoginFormHtml);
 
         var returnUrl = document.GetInputValue("ReturnUrl");
         var requestVerificationToken = document.GetInputValue("__RequestVerificationToken");
 
-        return new AccountLoginFormData
+        return new LoginFormData
         {
             ReturnUrl = returnUrl,
             RequestVerificationToken = requestVerificationToken
         };
     }
 
-    private static AccountLoginFormData GetFilledAccountLoginFormData(AccountLoginFormData emptyFormData)
+    private static LoginFormData GetFilledAccountLoginFormData(LoginFormData emptyFormData)
     {
-        return new AccountLoginFormData
+        return new LoginFormData
         {
             ReturnUrl = emptyFormData.ReturnUrl,
             Login = Config.Login,
             Password = Config.Password,
-            TenantName = "dodopizza",
-            CountryCode = "Ru",
             AuthMethod = "local",
             RequestVerificationToken = emptyFormData.RequestVerificationToken,
             RememberLogin = false
         };
     }
 
-    private static async Task<string> SendAccountLoginFormDataAsync(AccountLoginFormData formData)
+    private static async Task<string> SendAccountLoginFormDataAsync(LoginFormData formData)
     {
         var formValues = new Dictionary<string, string?>
         {

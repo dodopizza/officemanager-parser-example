@@ -120,8 +120,6 @@ internal static class Program
             ReturnUrl = emptyFormData.ReturnUrl,
             Login = Config.Login,
             Password = Config.Password,
-            TenantName = "dodopizza",
-            CountryCode = "Ru",
             AuthMethod = "local",
             RequestVerificationToken = emptyFormData.RequestVerificationToken,
             RememberLogin = false
@@ -135,8 +133,6 @@ internal static class Program
             ["ReturnUrl"] = formData.ReturnUrl,
             ["Login"] = formData.Login,
             ["Password"] = formData.Password,
-            ["TenantName"] = formData.TenantName,
-            ["CountryCode"] = formData.CountryCode,
             ["authMethod"] = formData.AuthMethod,
             ["__RequestVerificationToken"] = formData.RequestVerificationToken,
             ["RememberLogin"] = formData.RememberLogin.ToString()
